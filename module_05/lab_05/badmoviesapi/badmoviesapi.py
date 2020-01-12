@@ -1,33 +1,58 @@
+from urllib import request, parse
 import yaml
 import json
-import requests
-from urllib.parse import quote
 
-def get_config(config_file):
-  with open(config_file) as f:
-    cfg = yaml.load(f, Loader=yaml.FullLoader)
-  return cfg
+#Here is where we load our creds from the credentials file
+def get_credentials():
+  configDrive='./config/configbadmovies.yaml'
+  with open(configDrive, 'r') as creds:
+    creds_obj=yaml.load(creds, Loader=yaml.BaseLoader)
+  return creds_obj
 
-def build_url(cfg, movie_name):
-  moviename_encoded = quote(movie_name)
-  return cfg["baseurl"] + cfg["apikey"] + "&t=" + moviename_encoded
+#Here is where we get the input and urlencode the movie name
+def url_encode_moviename(movie_name):
+  return parse.quote(movie_name.lower())
 
-def run_request(url):
-  api_response = requests.get(url)
-  if api_response.ok:
-    return json.loads(api_response.content.decode('utf-8'))
-  else:
-    return None
+#Create the URL to hit the omdb api
+def create_url(movie_name):
+  creds = get_credentials()
+  creds['moviename']=url_encode_moviename(movie_name)
+  return "{baseapiurl}?{apikey}&t={moviename}".format(**creds)
 
-#Return the ratings
-def get_scores(sources):
-  if sources["Metascore"] == "N/A":
-    for source in sources["Ratings"]:
-      if source["Source"] == "Rotten Tomatoes":
-        return source
-      if source["Source"] == "Internet Movie Database":
-        return source
-  return {"Source": "Metascore", "Value": sources["Metascore"]}
+#Here's where we hit the api and get data back
+def hit_omdb_api(url):
+  req = request.Request(url)
+  resp = request.urlopen(req).read()
+  return json.loads(resp.decode('utf-8'))
+  
+#Here is how we will translate IMDB ratings to an out of 100 scale  
+def _imdb_balancer(rating):
+  rate = rating[:-3]
+  return float(rate) * 10
+
+def _rotten_tomatoes_balancer(rating):
+  return float(rating[:-1])
+
+def _metacritic_balancer(rating):
+  return float(rating[:-4])
+
+#Create Ratings system
+def get_ratings_system(movie_info):
+  all_rtngs = []
+  for rating in movie_info["Ratings"]:
+    if rating["Source"] == "Internet Movie Database":
+      all_rtngs.append(_imdb_balancer(rating["Value"]))
+    if rating["Source"] == "Rotten Tomatoes":
+      all_rtngs.append(_rotten_tomatoes_balancer(rating["Value"]))
+    if rating["Source"] == "Metacritic":
+      all_rtngs.append(_metacritic_balancer(rating["Value"]))
+  return sum(all_rtngs) / len(all_rtngs)
+
+def get_avg_score(movie_name):
+  url=create_url(movie_name)
+  movieinfo=hit_omdb_api(url)
+  ratings=get_ratings_system(movieinfo)
+  return "{0:.2f}".format(ratings)
 
 def get_run_time(movie_data):
   return movie_data.get("Runtime")
