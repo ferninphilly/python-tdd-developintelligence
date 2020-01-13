@@ -9,7 +9,9 @@ version: 0.2
      # key: "value"
 
 phases:
-  #install:
+  install:
+    runtime-versions:
+      python: 3.7
     #commands:
       # - command
       # - command
