@@ -22,7 +22,7 @@ phases:
   build:
     commands:
       - echo Oh Hai Mark
-      # - command
+      - sh ./runtests.sh
       # - command
   #post_build:
     #commands:

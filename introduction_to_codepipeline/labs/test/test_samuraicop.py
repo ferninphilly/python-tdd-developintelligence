@@ -33,4 +33,7 @@ class TestSamuraiCop(unittest.TestCase):
     self.assertGreater(self.samurai.chickens,0)
     
 if __name__ == '__main__':
-  unittest.main()
+    test_suite = unittest.defaultTestLoader.discover('.', '*_test.py')
+    test_runner = unittest.TextTestRunner(resultclass=unittest.TextTestResult)
+    result = test_runner.run(test_suite)
+    sys.exit(not result.wasSuccessful())
