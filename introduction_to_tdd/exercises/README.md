@@ -68,3 +68,9 @@ Website: "N/A",
 Response: "True"
 }
 ```
+
+## Deliverables:
+
+Make a plan (if you can) of what each function will look like. We'll share this plan with the class and the group. *Talk through each step*. 
+REALLY try to understand what you want to do and what you are trying to achieve! 
+BEFORE we are ready to code we should have our tests written!
