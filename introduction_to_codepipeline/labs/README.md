@@ -45,7 +45,7 @@ phases:
   build:
     commands:
       - echo Oh Hai Mark
-      - sh ./runtests.sh
+      # - sh ./runtests.sh
       # - command
   #post_build:
     #commands:
@@ -66,4 +66,7 @@ phases:
 
 ![buildspec](../images/buildspec.png)
 
-7. NOW...let's run a 
+7. We'll go over each aspect of that file now. Once that's done let's start adding complications.
+Let's update with the test file for Samurai cop and run. 
+
+![failbuild](../images/failbuild.png)

@@ -12,18 +12,17 @@ phases:
   install:
     runtime-versions:
       python: 3.7
-    #commands:
+    commands:
       # - command
       # - command
-  #pre_build:
-    #commands:
-      # - command
-      # - command
+  pre_build:
+    commands:
+      - curl -O https://releases.hashicorp.com/terraform/0.12.13/terraform_0.12.13_linux_amd64.zip
+      - unzip terraform_0.12.13_linux_amd64.zip -d /usr/bin/
   build:
     commands:
       - echo Oh Hai Mark
       - sh ./runtests.sh
-      # - command
   #post_build:
     #commands:
       # - command

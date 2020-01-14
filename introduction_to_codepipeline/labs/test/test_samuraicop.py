@@ -28,7 +28,7 @@ class TestSamuraiCop(unittest.TestCase):
     self.assertFalse(self.samurai.cop)
 
   def test_birthday_chickens_killed(self):
-    self.assertEqual(self.samurai.chickens, 76)
+    self.assertEqual(self.samurai.chickens, 0)
     self.samurai.birthday_chickens_killed()
     self.assertGreater(self.samurai.chickens,0)
     
