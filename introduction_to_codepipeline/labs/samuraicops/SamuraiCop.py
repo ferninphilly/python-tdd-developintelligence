@@ -6,6 +6,7 @@ class SamuraiCop:
     self.cop = True
     self.chickens = 0
 
+
   def bad_guys_beaten_up(self):
     beatenup = self.badguys.pop()
     print(self.name + "  just beat up " + beatenup + "\n")

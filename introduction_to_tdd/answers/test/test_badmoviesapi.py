@@ -25,6 +25,7 @@ class TestBadMovies(unittest.TestCase):
     self.assertTrue(url.endswith("troll%202"))
     self.assertTrue(url.startswith("http://"))
 
+
   #Here is our mock function- we are going to replace the meaning of a function
   @patch('badmoviesapi.badmoviesapi.requests.get')
   def test_run_request(self, mock_get):

@@ -9,19 +9,19 @@ version: 0.2
      # key: "value"
 
 phases:
-  #install:
+  install:
+    runtime-versions:
+      python: 3.7
     #commands:
       # - command
-      # - command
-  #pre_build:
-    #commands:
-      # - command
+  pre_build:
+    commands:
       # - command
   build:
     commands:
-      - echo Hello from CodeBuild
-      # - command
-      # - command
+      - echo Cats is the best movie ever
+      #- cd ./introduction_to_codepipeline/labs
+      #- coverage run --source . -m unittest discover && coverage report
   #post_build:
     #commands:
       # - command

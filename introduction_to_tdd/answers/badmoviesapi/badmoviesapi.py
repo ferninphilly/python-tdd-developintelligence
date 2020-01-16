@@ -28,6 +28,7 @@ def build_url(creds, movie_name):
   #url_encode_moviename(movie_name)
   return "{baseapiurl}?{apikey}&t={moviename}".format(**creds)
 
+
 #Here's where we hit the api and get data back
 def run_request(url):
   api_response = requests.get(url)

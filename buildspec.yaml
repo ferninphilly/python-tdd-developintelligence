@@ -12,17 +12,16 @@ phases:
   install:
     runtime-versions:
       python: 3.7
-    commands:
-      # - command
+    #commands:
       # - command
   pre_build:
     commands:
-      - curl -O https://releases.hashicorp.com/terraform/0.12.13/terraform_0.12.13_linux_amd64.zip
-      - unzip terraform_0.12.13_linux_amd64.zip -d /usr/bin/
+      # - command
   build:
     commands:
-      - echo Oh Hai Mark
-      - sh ./runtests.sh
+      - echo Cats is the best movie ever
+      #- cd ./introduction_to_codepipeline/labs
+      #- coverage run --source . -m unittest discover && coverage report
   #post_build:
     #commands:
       # - command
